@@ -121,7 +121,7 @@
         
         .search-box input {
             width: 100%;
-            padding: 15px 20px 15px 50px;
+            padding: 15px 50px 15px 50px; /* 调整左右内边距 */
             border: 2px solid var(--border);
             border-radius: 50px;
             font-size: 1.05rem;
@@ -136,13 +136,52 @@
             box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.2);
         }
         
-        .search-box i {
+        .search-box i.fa-search {
             position: absolute;
             left: 20px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--gray);
             font-size: 1.1rem;
+            z-index: 2;
+        }
+        
+        /* 添加清除按钮样式 */
+        .search-box .clear-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 2;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            background: transparent;
+            border: none;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .search-box .clear-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .search-box .clear-btn:hover {
+            color: var(--dark);
+            background: var(--light-gray);
+        }
+        
+        .dark-mode .search-box .clear-btn:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
         }
         
         .card-grid {
@@ -458,6 +497,10 @@
             <div class="search-box">
                 <i class="fas fa-search"></i>
                 <input type="text" id="searchInput" placeholder="输入小区名称搜索..." aria-label="搜索小区">
+                <!-- 添加清除按钮 -->
+                <button class="clear-btn" id="clearSearch" aria-label="清除搜索内容">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="stats-card">
                 <i class="fas fa-info-circle"></i>
@@ -627,7 +670,8 @@
             searchInput: document.getElementById('searchInput'),
             themeToggle: document.getElementById('themeToggle'),
             body: document.body,
-            communityCount: document.getElementById('communityCount')
+            communityCount: document.getElementById('communityCount'),
+            clearSearch: document.getElementById('clearSearch')
         };
         
         // 状态变量
@@ -650,6 +694,18 @@
                 icon.classList.remove('fa-moon');
                 icon.classList.add('fa-sun');
                 elements.themeToggle.setAttribute('aria-label', '切换到亮色模式');
+            }
+            
+            // 初始隐藏清除按钮
+            updateClearButtonVisibility();
+        }
+        
+        // 更新清除按钮的可见性
+        function updateClearButtonVisibility() {
+            if (elements.searchInput.value.trim()) {
+                elements.clearSearch.classList.add('visible');
+            } else {
+                elements.clearSearch.classList.remove('visible');
             }
         }
         
@@ -713,6 +769,7 @@
                 debounceTimer = setTimeout(() => {
                     currentSearchTerm = e.target.value;
                     renderCards(communities);
+                    updateClearButtonVisibility();
                 }, 300);
             });
             
@@ -754,6 +811,45 @@
                         expandedCards.add(index);
                     }
                 }
+            });
+            
+            // 添加清除按钮事件监听
+            elements.clearSearch.addEventListener('click', () => {
+                elements.searchInput.value = '';
+                currentSearchTerm = '';
+                renderCards(communities);
+                updateClearButtonVisibility();
+                // 移除了 focus() 调用
+            });
+            
+            // 监听搜索框的输入事件以更新清除按钮
+            elements.searchInput.addEventListener('input', () => {
+                updateClearButtonVisibility();
+            });
+            
+            // 添加点击页面其他区域时搜索框失去焦点的功能
+            document.addEventListener('click', (e) => {
+                // 如果点击的不是搜索框区域（包括搜索输入框和清除按钮）
+                if (!e.target.closest('.search-box')) {
+                    // 移除搜索框的焦点状态
+                    elements.searchInput.blur();
+                    
+                    // 移除搜索框的焦点样式
+                    elements.searchInput.style.borderColor = 'var(--border)';
+                    elements.searchInput.style.boxShadow = 'none';
+                }
+            });
+            
+            // 搜索框获得焦点时添加样式
+            elements.searchInput.addEventListener('focus', () => {
+                elements.searchInput.style.borderColor = 'var(--primary)';
+                elements.searchInput.style.boxShadow = '0 0 0 4px rgba(67, 97, 238, 0.2)';
+            });
+            
+            // 搜索框失去焦点时移除样式
+            elements.searchInput.addEventListener('blur', () => {
+                elements.searchInput.style.borderColor = 'var(--border)';
+                elements.searchInput.style.boxShadow = 'none';
             });
         }
         
