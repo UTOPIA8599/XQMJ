@@ -819,7 +819,8 @@
                 currentSearchTerm = '';
                 renderCards(communities);
                 updateClearButtonVisibility();
-                // 移除了 focus() 调用
+                // 确保搜索框失去焦点
+                elements.searchInput.blur();
             });
             
             // 监听搜索框的输入事件以更新清除按钮
@@ -827,29 +828,41 @@
                 updateClearButtonVisibility();
             });
             
-            // 添加点击页面其他区域时搜索框失去焦点的功能
-            document.addEventListener('click', (e) => {
-                // 如果点击的不是搜索框区域（包括搜索输入框和清除按钮）
-                if (!e.target.closest('.search-box')) {
-                    // 移除搜索框的焦点状态
+            // 防止清除按钮触发焦点状态
+            elements.clearSearch.addEventListener('mousedown', (e) => {
+                e.preventDefault(); // 阻止mousedown事件默认行为
+            });
+            
+            // 监听搜索框的键盘事件
+            elements.searchInput.addEventListener('keydown', (e) => {
+                // 当按下ESC键时移除焦点
+                if (e.key === 'Escape') {
                     elements.searchInput.blur();
-                    
-                    // 移除搜索框的焦点样式
-                    elements.searchInput.style.borderColor = 'var(--border)';
-                    elements.searchInput.style.boxShadow = 'none';
                 }
             });
             
-            // 搜索框获得焦点时添加样式
-            elements.searchInput.addEventListener('focus', () => {
-                elements.searchInput.style.borderColor = 'var(--primary)';
-                elements.searchInput.style.boxShadow = '0 0 0 4px rgba(67, 97, 238, 0.2)';
+            // 监听全局触摸事件（移动设备）
+            document.addEventListener('touchstart', (e) => {
+                // 如果触摸的不是搜索框区域
+                if (!e.target.closest('.search-box')) {
+                    // 移除搜索框的焦点
+                    elements.searchInput.blur();
+                }
             });
             
-            // 搜索框失去焦点时移除样式
+            // 监听全局点击事件
+            document.addEventListener('click', (e) => {
+                // 如果点击的不是搜索框区域
+                if (!e.target.closest('.search-box')) {
+                    // 移除搜索框的焦点
+                    elements.searchInput.blur();
+                }
+            });
+            
+            // 监听搜索框失去焦点事件（键盘收起时）
             elements.searchInput.addEventListener('blur', () => {
-                elements.searchInput.style.borderColor = 'var(--border)';
-                elements.searchInput.style.boxShadow = 'none';
+                // 确保移除所有焦点样式
+                elements.searchInput.classList.remove('focus-state');
             });
         }
         
