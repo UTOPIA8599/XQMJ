@@ -109,7 +109,6 @@
             flex-direction: column;
         }
         
-        /* 修改后的logo-icon样式 - 移除了背景和动画 */
         .logo-icon {
             width: auto;
             height: auto;
@@ -120,7 +119,8 @@
             color: var(--primary);
             font-size: 4rem;
             box-shadow: none;
-            margin-bottom: 15px;
+            margin-bottom: 0px;
+            margin-top: 10px;
             position: relative;
             overflow: visible;
         }
@@ -352,6 +352,11 @@
             position: relative;
             overflow: hidden;
             box-shadow: var(--shadow);
+            transition: transform 0.2s ease;
+        }
+        
+        .theme-toggle:active {
+            transform: scale(0.95);
         }
         
         .theme-toggle:hover, .theme-toggle:focus {
@@ -447,6 +452,12 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            transform: translateY(0);
+        }
+        
+        .tab:active {
+            transform: scale(0.97);
+            transition: transform 0.1s ease;
         }
         
         .tab.active {
@@ -462,10 +473,15 @@
         
         .tab-content {
             display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
         }
         
         .tab-content.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
         
         /* 商家指引样式 */
@@ -485,6 +501,119 @@
         .business-card:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-hover);
+        }
+        
+        /* 新增：图片轮播样式 */
+        .image-carousel {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: var(--light-gray);
+            overflow: hidden;
+        }
+        
+        .carousel-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-gray);
+            position: relative;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-slide .placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            gap: 15px;
+        }
+        
+        .carousel-slide .placeholder i {
+            font-size: 4rem;
+            opacity: 0.5;
+        }
+        
+        .carousel-slide .placeholder span {
+            font-size: 1.1rem;
+            opacity: 0.7;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        
+        .carousel-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .carousel-btn:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+        
+        .carousel-btn.prev {
+            left: 15px;
+        }
+        
+        .carousel-btn.next {
+            right: 15px;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .indicator:hover {
+            background: rgba(255, 255, 255, 0.8);
         }
         
         .business-info {
@@ -546,9 +675,294 @@
             color: var(--primary);
         }
         
+        /* 电摩配件样式 */
+        .parts-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .category-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .category-btn {
+            padding: 10px 18px;
+            background: var(--light-gray);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            transform: translateY(0);
+        }
+        
+        .category-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .category-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .parts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .part-card {
+            background-color: var(--card-bg);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .part-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .part-image {
+            height: 200px;
+            background-color: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .part-image i {
+            font-size: 4rem;
+            color: var(--gray);
+        }
+        
+        .part-info {
+            padding: 20px;
+        }
+        
+        .part-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        
+        .part-description {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .part-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .part-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transform: translateY(0);
+        }
+        
+        .btn:active {
+            transform: scale(0.97);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--light-gray);
+            color: var(--text);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--card-radius);
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--light-gray);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-header {
+            padding: 30px 30px 0;
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-image i {
+            font-size: 6rem;
+            color: var(--gray);
+        }
+        
+        .modal-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .modal-description {
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        
+        .cart-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .cart-notification.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
         @media (max-width: 1100px) {
             .card-grid {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .parts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
         
@@ -595,6 +1009,22 @@
             .logo-icon {
                 font-size: 3.5rem;
             }
+            
+            .parts-controls {
+                flex-direction: column;
+            }
+            
+            .category-filter {
+                justify-content: center;
+            }
+            
+            .modal-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-carousel {
+                height: 200px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -632,6 +1062,28 @@
                 font-size: 0.9rem;
                 padding: 0 15px;
             }
+            
+            .parts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .part-actions {
+                flex-direction: column;
+            }
+            
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .carousel-btn.prev {
+                left: 10px;
+            }
+            
+            .carousel-btn.next {
+                right: 10px;
+            }
         }
     </style>
 </head>
@@ -647,7 +1099,7 @@
             <div class="header-content">
                 <div class="logo">
                     <div class="logo-icon">
-                        <i class="fas fa-biking"></i>
+                        <img src="https://i.postimg.cc/25nj9NBd/IMG-1841-2-1-1.png" alt="骑手图标" style="width: 150px; height: 150px; object-fit: contain;">
                     </div>
                     <h1>骑手辅助工具</h1>
                     <div class="logo-text">为骑手提供便捷的门禁管理与商家导航解决方案</div>
@@ -701,33 +1153,22 @@
         
         <!-- 商家指引内容 -->
         <div class="tab-content" id="business-tab">
-            <div class="business-guide">
-                <!-- 商家指引卡片示例 -->
-                <div class="business-card">
-                    <div class="business-info">
-                        <h3 class="business-name">示例商家名称</h3>
-                        <p class="business-description">这里是商家的简要描述，您可以介绍商家的类型、特色服务等。</p>
-                        
-                        <div class="business-instructions">
-                            <div class="instructions-title">
-                                <i class="fas fa-route"></i>
-                                <span>如何找到商家</span>
-                            </div>
-                            <ol class="instructions-steps">
-                                <li>从小区主入口进入后直行50米</li>
-                                <li>在第一个路口右转</li>
-                                <li>继续前行30米，左侧红色招牌即是</li>
-                            </ol>
-                        </div>
-                    </div>
+            <div class="controls">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="businessSearchInput" placeholder="输入商家名称或类型搜索..." aria-label="搜索商家">
+                    <button class="clear-btn" id="clearBusinessSearch" aria-label="清除搜索内容">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
-                
-                <!-- 更多商家指引卡片可以按照上述结构添加 -->
+            </div>
+            <div class="business-guide" id="businessGuide">
+                <!-- 商家卡片将通过JavaScript动态生成 -->
             </div>
         </div>
         
         <footer>
-            <p>骑手辅助工具&copy; 2025 - 为骑手提供便捷的门禁管理与商家导航解决方案</p>
+            <p>骑手辅助工具© 2025 - 为骑手提供便捷的门禁管理与商家导航解决方案</p>
         </footer>
     </div>
 
@@ -741,7 +1182,7 @@
             { name: "春和花园11号楼", password: "0#666888" },
             { name: "金玉源", password: "9*8525" },
             { name: "尚都公馆", password: "789#" },
-            { name: "蓝水湾", password: "258191#" },
+            { name: "蓝水湾", password: "#258191#" },
             { name: "新华广场", password: "#8888" },
             { name: "盛通银河", password: "#100002#" },
             { name: "燕丰园", password: "#888888#" },
@@ -749,19 +1190,19 @@
             { name: "春和花园", password: "0#666888" },
             { name: "锦瑞尚城", password: "#080000#" },
             { name: "紫云轩", password: "#1201#1201" },
-            { name: "宸阳岛", password: "🔑10011234" },
+            { name: "守阳岛", password: "🔑10011234" },
             { name: "和平郡府", password: "*111111" },
             { name: "梅花公寓", password: "000008020000" },
-            { name: "名人小区", password: "#9633" },
+            { name: "华人小区", password: "#9633" },
             { name: "新境界东5", password: "#7797" },
-            { name: "豪邸坊", password: "#5236" },
+            { name: "豪邸半", password: "#5236" },
             { name: "八大街东区", password: "#9123000" },
             { name: "盛世嘉华", password: "*123456" },
             { name: "阿尔卡迪亚豪5", password: "020212345" },
             { name: "锦绣家园7号楼", password: "7869" },
             { name: "凯悦花园", password: "##1346" },
             { name: "锦绣观邸", password: "#1234" },
-            { name: "汇源名居东区", password: "#3344" },
+            { name: "汇源华居东区", password: "#3344" },
             { name: "新城昕樾", password: "#123456" },
             { name: "阿尔卡迪亚", password: "0202全是8#" },
             { name: "紫云轩3号1单", password: "#1702#1702" },
@@ -769,15 +1210,15 @@
             { name: "华夏水晶城", password: "#88889999" },
             
             // 空白小区占位符（100个）
-            { name: "四季花语四号地10号楼", password: "*054045" },
-            { name: "锦绣名园（夏荷座2单元）", password: "#2580#" },
-            { name: "锦绣名园（夏荷座1单元）", password: "#4679#" },
-            { name: "阳光郡8号楼", password: "🔑123456" },
-            { name: "俪景嘉园5号楼2单元", password: "0301" },
-            { name: "锦绣家园(新开路)7号楼（7号楼海棠座）", password: "#1359#" },
-            { name: "锦绣家园（新开路）地产大厦3单元", password: "#1346#" },
-            { name: "锦绣家园", password: "#2580#" },
-            { name: "锦绣家园11号楼1单元", password: "4679" },
+            { name: "四季花语四区地10号楼", password: "*054045" },
+            { name: "锦绣华园（夏荷座2单元）", password: "#2580#" },
+            { name: "待添加小区 3", password: "密码待添加" },
+            { name: "待添加小区 4", password: "密码待添加" },
+            { name: "待添加小区 5", password: "密码待添加" },
+            { name: "待添加小区 6", password: "密码待添加" },
+            { name: "待添加小区 7", password: "密码待添加" },
+            { name: "待添加小区 8", password: "密码待添加" },
+            { name: "待添加小区 9", password: "密码待添加" },
             { name: "待添加小区 10", password: "密码待添加" },
             { name: "待添加小区 11", password: "密码待添加" },
             { name: "待添加小区 12", password: "密码待添加" },
@@ -871,23 +1312,176 @@
             { name: "待添加小区 100", password: "密码待添加" }
         ];
         
+        // ========================================
+        // 🔴🔴🔴 商家图片配置区域 - 开始
+        // ========================================
+        // 使用方案1：独立的商家图片映射对象
+        // 请将下面的注释替换为实际的图片URL
+        const businessImages = {
+            // ====== 餐饮类商家图片 (ID: 1-30) ======
+            
+            // 1: 晨亦碗
+             1: ['https://i.postimg.cc/3JLJqcm4/IMG-1793.jpg', '图片2URL', '图片3URL', '图片4URL', '图片5URL'],
+            
+            // 2: 肉哆哆
+             2: ['https://i.postimg.cc/GtntSZyw/IMG-1805.jpg', '图片2URL', '图片3URL', '图片4URL', '图片5URL'],
+            
+            // 3: 福满楼餐厅
+            // 3: ['图片1URL', '图片2URL', '图片3URL', '图片4URL', '图片5URL'],
+            
+            // 4-100: 更多商家图片配置...
+        };
+        
+        // 辅助函数：获取商家图片
+        function getBusinessImages(businessId) {
+            // 如果有真实图片，返回图片数组
+            if (businessImages[businessId]) {
+                return businessImages[businessId];
+            }
+            // 否则返回空数组，将显示占位符
+            return [];
+        }
+        // ========================================
+        // 🔴🔴🔴 商家图片配置区域 - 结束
+        // ========================================
+        
+        // 商家数据 - 100个商家
+        const businesses = [
+            // 餐饮类商家 (1-30)
+            { id: 1, name: "晨亦碗、潮汕牛肉饭（一家店）", type: "餐饮", navigation: ["暂无"] },
+            { id: 2, name: "肉哆哆、椒小仙（一家店）", type: "餐饮", navigation: ["市场内最西南角"] },
+            { id: 3, name: "福满楼餐厅", type: "餐饮", navigation: ["从小区主入口进入", "第二个路口右转", "红色大门，有停车位"] },
+            { id: 4, name: "早安豆浆", type: "餐饮", navigation: ["小区西门外50米", "便利店旁边", "绿色招牌很显眼"] },
+            { id: 5, name: "重庆小面", type: "餐饮", navigation: ["从北门进入商业区", "第一排商铺左侧", "门口有红灯笼"] },
+            { id: 6, name: "港式茶餐厅", type: "餐饮", navigation: ["小区会所一楼", "游泳池旁边", "玻璃幕墙装修"] },
+            { id: 7, name: "日式拉面馆", type: "餐饮", navigation: ["商业街中段", "星巴克隔壁", "木质装修风格"] },
+            { id: 8, name: "韩国料理", type: "餐饮", navigation: ["小区东门外200米", "二楼整层", "电梯直达"] },
+            { id: 9, name: "素食餐厅", type: "餐饮", navigation: ["会所二楼东侧", "健身房对面", "绿色植物装饰"] },
+            { id: 10, name: "海鲜大排档", type: "餐饮", navigation: ["商业街尽头", "靠近菜市场", "蓝色遮阳棚"] },
+            { id: 11, name: "兰州拉面", type: "餐饮", navigation: ["小区北门右转100米", "绿色清真标志", "24小时营业"] },
+            { id: 12, name: "东北饺子馆", type: "餐饮", navigation: ["商业街B区3号", "农业银行楼下", "红色门头"] },
+            { id: 13, name: "成都串串香", type: "餐饮", navigation: ["美食广场二楼", "扶梯上来右转", "最里面位置"] },
+            { id: 14, name: "粥铺", type: "餐饮", navigation: ["24小时便利店旁", "小区西门内侧", "白色招牌"] },
+            { id: 15, name: "披萨店", type: "餐饮", navigation: ["商业中心一楼", "电影院入口旁", "红绿白三色装饰"] },
+            { id: 16, name: "咖啡时光", type: "餐饮", navigation: ["小区图书馆旁", "临湖位置", "落地窗设计"] },
+            { id: 17, name: "泰国餐厅", type: "餐饮", navigation: ["商业街C区", "花店隔壁", "金色装饰"] },
+            { id: 18, name: "火锅店", type: "餐饮", navigation: ["商业广场三楼", "电梯出来左转", "最大的店面"] },
+            { id: 19, name: "烤鸭店", type: "餐饮", navigation: ["小区东门外300米", "独栋建筑", "中式庭院"] },
+            { id: 20, name: "奶茶店", type: "餐饮", navigation: ["商业街入口", "第一家店", "粉色装修"] },
+            { id: 21, name: "汉堡店", type: "餐饮", navigation: ["儿童乐园旁边", "小区中心广场", "黄色M标志"] },
+            { id: 22, name: "螺蛳粉店", type: "餐饮", navigation: ["美食街最里面", "通风良好区域", "需要找一找"] },
+            { id: 23, name: "寿司店", type: "餐饮", navigation: ["商业街日料区", "有日式门帘", "需脱鞋进入"] },
+            { id: 24, name: "米线店", type: "餐饮", navigation: ["小区南门左转", "第三家店铺", "云南特色装饰"] },
+            { id: 25, name: "包子铺", type: "餐饮", navigation: ["菜市场入口", "清晨5点开门", "排队人很多"] },
+            { id: 26, name: "凉皮店", type: "餐饮", navigation: ["小吃街中段", "红色遮阳伞", "老板陕西口音"] },
+            { id: 27, name: "煎饼果子", type: "餐饮", navigation: ["地铁站出口", "流动摊位", "早上7-9点"] },
+            { id: 28, name: "酸菜鱼", type: "餐饮", navigation: ["商业楼B座2楼", "电梯出来右手边", "鱼形招牌"] },
+            { id: 29, name: "烤肉店", type: "餐饮", navigation: ["商业广场4楼", "影院楼上", "需要预约"] },
+            { id: 30, name: "甜品店", type: "餐饮", navigation: ["小区会所咖啡厅旁", "安静环境", "适合约会"] },
+            
+            // 便利店/超市类 (31-45)
+            { id: 31, name: "全家便利店", type: "便利店", navigation: ["小区正门入口处", "保安室对面", "绿色招牌"] },
+            { id: 32, name: "7-11便利店", type: "便利店", navigation: ["商业街24号", "ATM机旁边", "红绿条纹标志"] },
+            { id: 33, name: "美宜佳", type: "便利店", navigation: ["小区北门内侧", "快递站对面", "橙色招牌"] },
+            { id: 34, name: "永辉超市", type: "超市", navigation: ["商业中心B1层", "扶梯直达", "绿色标识"] },
+            { id: 35, name: "罗森便利店", type: "便利店", navigation: ["地铁站内", "B出口旁", "蓝白标志"] },
+            { id: 36, name: "联华超市", type: "超市", navigation: ["小区中心位置", "广场东侧", "红色招牌"] },
+            { id: 37, name: "OK便利店", type: "便利店", navigation: ["商业街中段", "药店隔壁", "黄色圆形标志"] },
+            { id: 38, name: "华润万家", type: "超市", navigation: ["商业广场一楼", "主入口进入", "大型卖场"] },
+            { id: 39, name: "钱大妈", type: "生鲜店", navigation: ["菜市场旁边", "小区西门外", "绿色门头"] },
+            { id: 40, name: "盒马鲜生", type: "超市", navigation: ["商业中心新区", "停车方便", "蓝色河马标志"] },
+            { id: 41, name: "每日优鲜", type: "生鲜店", navigation: ["小区服务中心", "可自提", "绿色标识"] },
+            { id: 42, name: "便民小超市", type: "便利店", navigation: ["15栋楼下", "老王开的店", "没有招牌"] },
+            { id: 43, name: "进口超市", type: "超市", navigation: ["商业街高端区", "LV店旁边", "英文招牌"] },
+            { id: 44, name: "水果店", type: "生鲜店", navigation: ["小区南门右手边", "彩色水果装饰", "老板娘很热情"] },
+            { id: 45, name: "菜市场", type: "菜市场", navigation: ["小区后门出去", "过马路就到", "早上6点开始"] },
+            
+            // 服务类商家 (46-70)
+            { id: 46, name: "顺丰快递", type: "快递", navigation: ["小区西门快递站", "1号位置", "黑红标志"] },
+            { id: 47, name: "中通快递", type: "快递", navigation: ["快递站2号位", "顺丰旁边", "蓝色标志"] },
+            { id: 48, name: "京东快递", type: "快递", navigation: ["小区北门外", "独立站点", "红色狗标志"] },
+            { id: 49, name: "韵达快递", type: "快递", navigation: ["快递站3号位", "最里面", "绿色标志"] },
+            { id: 50, name: "圆通快递", type: "快递", navigation: ["商业街快递点", "理发店楼上", "需上二楼"] },
+            { id: 51, name: "申通快递", type: "快递", navigation: ["快递站5号位", "靠窗位置", "黄色STO标志"] },
+            { id: 52, name: "邮政EMS", type: "快递", navigation: ["邮局内", "小区东门外200米", "绿色邮政标志"] },
+            { id: 53, name: "极兔速递", type: "快递", navigation: ["快递站新增位置", "最外面", "兔子标志"] },
+            { id: 54, name: "菜鸟驿站", type: "快递", navigation: ["小区中心服务站", "自助柜区域", "支付宝扫码"] },
+            { id: 55, name: "丰巢快递柜", type: "快递", navigation: ["每栋楼下都有", "黄色柜子", "微信取件"] },
+            { id: 56, name: "洗衣店", type: "服务", navigation: ["商业街15号", "蓝色店面", "有熨烫服务"] },
+            { id: 57, name: "修鞋店", type: "服务", navigation: ["菜市场门口", "小摊位", "戴眼镜的师傅"] },
+            { id: 58, name: "理发店", type: "服务", navigation: ["商业街8号", "二楼整层", "Tony老师"] },
+            { id: 59, name: "美容院", type: "服务", navigation: ["会所三楼", "女士专享", "粉色装修"] },
+            { id: 60, name: "健身房", type: "服务", navigation: ["会所B1层", "游泳池旁边", "需要会员卡"] },
+            { id: 61, name: "瑜伽馆", type: "服务", navigation: ["会所二楼西侧", "安静区域", "木地板教室"] },
+            { id: 62, name: "宠物店", type: "服务", navigation: ["商业街末端", "有宠物寄养", "能听到狗叫"] },
+            { id: 63, name: "花店", type: "服务", navigation: ["小区南门内", "香味很浓", "玻璃房"] },
+            { id: 64, name: "照相馆", type: "服务", navigation: ["商业街20号", "打印店旁边", "有PS修图"] },
+            { id: 65, name: "手机维修", type: "服务", navigation: ["电子市场内", "小区东门外", "多家可选"] },
+            { id: 66, name: "家政服务", type: "服务", navigation: ["物业办公室旁", "需要预约", "价格透明"] },
+            { id: 67, name: "搬家公司", type: "服务", navigation: ["小区后门停车场", "有货车", "电话预约"] },
+            { id: 68, name: "装修公司", type: "服务", navigation: ["建材市场内", "小区北门外500米", "有样板间"] },
+            { id: 69, name: "房产中介", type: "服务", navigation: ["小区正门左侧", "链家门店", "绿色招牌"] },
+            { id: 70, name: "汽车美容", type: "服务", navigation: ["地下停车场B2", "西北角", "专业设备"] },
+            
+            // 医疗药店类 (71-85)
+            { id: 71, name: "社区医院", type: "医疗", navigation: ["小区东门外100米", "白色建筑", "有急诊"] },
+            { id: 72, name: "大参林药房", type: "药店", navigation: ["商业街入口", "24小时营业", "绿十字标志"] },
+            { id: 73, name: "海王星辰", type: "药店", navigation: ["小区西门对面", "蓝色招牌", "可刷医保"] },
+            { id: 74, name: "同仁堂", type: "药店", navigation: ["商业中心二楼", "扶梯上来就是", "古色古香"] },
+            { id: 75, name: "益丰药房", type: "药店", navigation: ["超市出口旁", "绿色标志", "有坐诊医生"] },
+            { id: 76, name: "老百姓药房", type: "药店", navigation: ["菜市场对面", "橙色招牌", "早8点开门"] },
+            { id: 77, name: "牙科诊所", type: "医疗", navigation: ["商业街30号", "二楼", "有电梯"] },
+            { id: 78, name: "中医诊所", type: "医疗", navigation: ["小区会所一楼", "安静位置", "需要预约"] },
+            { id: 79, name: "儿科诊所", type: "医疗", navigation: ["商业街儿童区", "游乐场旁边", "彩色装修"] },
+            { id: 80, name: "体检中心", type: "医疗", navigation: ["医疗大楼3楼", "需要预约", "早上空腹"] },
+            { id: 81, name: "养生堂", type: "医疗", navigation: ["会所B1层", "spa区域", "需要会员"] },
+            { id: 82, name: "眼镜店", type: "医疗", navigation: ["商业街中段", "宝岛眼镜", "专业验光"] },
+            { id: 83, name: "康复中心", type: "医疗", navigation: ["医院旁边", "独栋建筑", "无障碍设施"] },
+            { id: 84, name: "心理诊所", type: "医疗", navigation: ["写字楼5楼", "安静私密", "需要预约"] },
+            { id: 85, name: "医疗器械店", type: "医疗", navigation: ["医院门口", "方便就医", "可租赁"] },
+            
+            // 其他类型商家 (86-100)
+            { id: 86, name: "文具店", type: "其他", navigation: ["学校对面", "学生很多", "价格实惠"] },
+            { id: 87, name: "书店", type: "其他", navigation: ["商业中心3楼", "安静环境", "可以看书"] },
+            { id: 88, name: "彩票站", type: "其他", navigation: ["小区南门内", "报刊亭旁边", "老板懂行"] },
+            { id: 89, name: "烟酒店", type: "其他", navigation: ["商业街5号", "红色门面", "可以送货"] },
+            { id: 90, name: "五金店", type: "其他", navigation: ["建材市场内", "品种齐全", "可以问老板"] },
+            { id: 91, name: "服装店", type: "其他", navigation: ["商业街服装区", "多家可选", "可以砍价"] },
+            { id: 92, name: "鞋店", type: "其他", navigation: ["商业中心一楼", "扶梯旁边", "经常打折"] },
+            { id: 93, name: "儿童乐园", type: "其他", navigation: ["商场3楼", "很大面积", "周末人多"] },
+            { id: 94, name: "KTV", type: "其他", navigation: ["商业广场5楼", "电梯直达", "需要预定"] },
+            { id: 95, name: "网吧", type: "其他", navigation: ["商业街地下一层", "楼梯下去", "通宵营业"] },
+            { id: 96, name: "台球厅", type: "其他", navigation: ["商业中心B1", "停车场旁", "环境不错"] },
+            { id: 97, name: "电影院", type: "其他", navigation: ["商业广场4楼", "扶梯直达", "可网上订票"] },
+            { id: 98, name: "银行ATM", type: "其他", navigation: ["小区各出入口", "多个网点", "注意安全"] },
+            { id: 99, name: "充电站", type: "其他", navigation: ["地下停车场", "专门区域", "扫码充电"] },
+            { id: 100, name: "公共厕所", type: "其他", navigation: ["商业街多处", "有指示牌", "定时清洁"] }
+        ];
+        
         // DOM元素缓存
         const elements = {
             cardGrid: document.getElementById('cardGrid'),
             searchInput: document.getElementById('searchInput'),
             themeToggle: document.getElementById('themeToggle'),
             body: document.body,
-            clearSearch: document.getElementById('clearSearch')
+            clearSearch: document.getElementById('clearSearch'),
+            businessGuide: document.getElementById('businessGuide'),
+            businessSearchInput: document.getElementById('businessSearchInput'),
+            clearBusinessSearch: document.getElementById('clearBusinessSearch')
         };
         
         // 状态变量
         let currentSearchTerm = '';
+        let currentBusinessSearchTerm = '';
         let debounceTimer;
+        let businessDebounceTimer;
         let expandedCards = new Set();
+        let carouselIndexes = {};
         
         // 初始化页面
         function init() {
             renderCards(communities);
+            renderBusinesses(businesses);
             setupEventListeners();
             setupTabs();
             
@@ -902,6 +1496,7 @@
             
             // 初始隐藏清除按钮
             updateClearButtonVisibility();
+            updateBusinessClearButtonVisibility();
         }
         
         // 设置选项卡功能
@@ -910,21 +1505,76 @@
             const tabContents = document.querySelectorAll('.tab-content');
             
             tabs.forEach(tab => {
+                // 添加按下效果
+                tab.addEventListener('mousedown', () => {
+                    tab.style.transform = 'scale(0.97)';
+                });
+                
+                tab.addEventListener('mouseup', () => {
+                    tab.style.transform = '';
+                });
+                
+                tab.addEventListener('mouseleave', () => {
+                    tab.style.transform = '';
+                });
+                
                 tab.addEventListener('click', () => {
                     const tabId = tab.getAttribute('data-tab');
                     
-                    // 更新活动选项卡
-                    tabs.forEach(t => t.classList.remove('active'));
+                    // 立即更新活动选项卡 - 提供即时视觉反馈
+                    tabs.forEach(t => {
+                        t.classList.remove('active');
+                    });
                     tab.classList.add('active');
                     
-                    // 显示对应内容
+                    // 立即隐藏所有内容
                     tabContents.forEach(content => {
                         content.classList.remove('active');
-                        if (content.id === `${tabId}-tab`) {
-                            content.classList.add('active');
-                        }
+                    });
+                    
+                    // 使用requestAnimationFrame确保UI立即更新
+                    requestAnimationFrame(() => {
+                        // 显示对应内容
+                        tabContents.forEach(content => {
+                            if (content.id === `${tabId}-tab`) {
+                                content.classList.add('active');
+                            }
+                        });
                     });
                 });
+            });
+        }
+        
+        // 导航轮播
+        function navigateCarousel(carouselId, isNext) {
+            const totalSlides = 5;
+            let currentIndex = carouselIndexes[carouselId] || 0;
+            
+            if (isNext) {
+                currentIndex = (currentIndex + 1) % totalSlides;
+            } else {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            }
+            
+            goToSlide(carouselId, currentIndex);
+        }
+        
+        // 跳转到指定幻灯片
+        function goToSlide(carouselId, slideIndex) {
+            carouselIndexes[carouselId] = slideIndex;
+            
+            const container = document.querySelector(`.carousel-container[data-index="${carouselId}"]`);
+            if (!container) return;
+            
+            const carousel = container.closest('.image-carousel');
+            const indicators = carousel.querySelectorAll('.indicator');
+            
+            // 更新容器位置
+            container.style.transform = `translateX(-${slideIndex * 100}%)`;
+            
+            // 更新指示器
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === slideIndex);
             });
         }
         
@@ -934,6 +1584,154 @@
                 elements.clearSearch.classList.add('visible');
             } else {
                 elements.clearSearch.classList.remove('visible');
+            }
+        }
+        
+        // 渲染商家卡片
+        function renderBusinesses(data) {
+            elements.businessGuide.innerHTML = '';
+            
+            const filteredData = data.filter(business => {
+                return business.name.toLowerCase().includes(currentBusinessSearchTerm.toLowerCase()) ||
+                       business.type.toLowerCase().includes(currentBusinessSearchTerm.toLowerCase());
+            });
+            
+            if (filteredData.length === 0) {
+                elements.businessGuide.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h2>未找到匹配的商家</h2>
+                        <p>请尝试使用不同的关键词搜索</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredData.forEach((business, index) => {
+                const card = document.createElement('div');
+                card.className = 'business-card';
+                card.dataset.businessId = business.id;
+                
+                // ========================================
+                // 🔴 使用方案1获取商家图片
+                // ========================================
+                const images = getBusinessImages(business.id);
+                
+                // 为每个商家创建图片轮播HTML
+                const carouselSlides = Array.from({length: 5}, (_, i) => {
+                    // 检查是否有对应的图片URL
+                    if (images && images[i]) {
+                        // 如果有真实图片，渲染img标签
+                        return `
+                            <div class="carousel-slide">
+                                <img src="${images[i]}" alt="${business.name} - 图片 ${i + 1}" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        `;
+                    } else {
+                        // 如果没有图片，显示占位符
+                        return `
+                            <div class="carousel-slide">
+                                <div class="placeholder">
+                                    <i class="fas fa-image"></i>
+                                    <span>${business.name} - 图片 ${i + 1}</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                }).join('');
+                
+                const indicators = Array.from({length: 5}, (_, i) => 
+                    `<span class="indicator ${i === 0 ? 'active' : ''}" data-slide="${i}" data-business="${business.id}"></span>`
+                ).join('');
+                
+                card.innerHTML = `
+                    <div class="image-carousel">
+                        <div class="carousel-container" data-index="${business.id}">
+                            ${carouselSlides}
+                        </div>
+                        <button class="carousel-btn prev" data-carousel="${business.id}">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="carousel-btn next" data-carousel="${business.id}">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <div class="carousel-indicators">
+                            ${indicators}
+                        </div>
+                    </div>
+                    
+                    <div class="business-info">
+                        <h3 class="business-name">${business.name}</h3>
+                        <div class="business-instructions">
+                            <div class="instructions-title">
+                                <i class="fas fa-route"></i> 导航指引
+                            </div>
+                            <ol class="instructions-steps">
+                                ${business.navigation.map(step => `<li>${step}</li>`).join('')}
+                            </ol>
+                        </div>
+                    </div>
+                `;
+                
+                elements.businessGuide.appendChild(card);
+                
+                // 初始化这个商家的轮播索引
+                carouselIndexes[business.id] = 0;
+            });
+            
+            // 重新设置轮播功能
+            setupBusinessCarousels();
+        }
+        
+        // 设置商家轮播功能
+        function setupBusinessCarousels() {
+            // 设置切换按钮
+            document.querySelectorAll('.business-guide .carousel-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const carouselId = parseInt(btn.getAttribute('data-carousel'));
+                    const isNext = btn.classList.contains('next');
+                    navigateCarousel(carouselId, isNext);
+                });
+            });
+            
+            // 设置指示器点击
+            document.querySelectorAll('.business-guide .indicator').forEach(indicator => {
+                indicator.addEventListener('click', () => {
+                    const slideIndex = parseInt(indicator.getAttribute('data-slide'));
+                    const businessId = parseInt(indicator.getAttribute('data-business'));
+                    goToSlide(businessId, slideIndex);
+                });
+            });
+            
+            // 添加触摸滑动支持
+            document.querySelectorAll('.business-guide .image-carousel').forEach(carousel => {
+                let startX = 0;
+                let endX = 0;
+                
+                carousel.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+                
+                carousel.addEventListener('touchend', (e) => {
+                    endX = e.changedTouches[0].clientX;
+                    const container = carousel.querySelector('.carousel-container');
+                    const carouselId = parseInt(container.getAttribute('data-index'));
+                    
+                    if (startX - endX > 50) {
+                        navigateCarousel(carouselId, true);
+                    } else if (endX - startX > 50) {
+                        navigateCarousel(carouselId, false);
+                    }
+                });
+            });
+        }
+        
+        // 更新商家搜索清除按钮的可见性
+        function updateBusinessClearButtonVisibility() {
+            if (elements.businessSearchInput && elements.businessSearchInput.value.trim()) {
+                elements.clearBusinessSearch.classList.add('visible');
+            } else if (elements.clearBusinessSearch) {
+                elements.clearBusinessSearch.classList.remove('visible');
             }
         }
         
@@ -1000,6 +1798,18 @@
                 }, 300);
             });
             
+            // 商家搜索功能（带防抖）
+            if (elements.businessSearchInput) {
+                elements.businessSearchInput.addEventListener('input', (e) => {
+                    clearTimeout(businessDebounceTimer);
+                    businessDebounceTimer = setTimeout(() => {
+                        currentBusinessSearchTerm = e.target.value;
+                        renderBusinesses(businesses);
+                        updateBusinessClearButtonVisibility();
+                    }, 300);
+                });
+            }
+            
             // 主题切换
             elements.themeToggle.addEventListener('click', () => {
                 elements.body.classList.toggle('dark-mode');
@@ -1049,10 +1859,28 @@
                 elements.searchInput.blur();
             });
             
+            // 添加商家搜索清除按钮事件监听
+            if (elements.clearBusinessSearch) {
+                elements.clearBusinessSearch.addEventListener('click', () => {
+                    elements.businessSearchInput.value = '';
+                    currentBusinessSearchTerm = '';
+                    renderBusinesses(businesses);
+                    updateBusinessClearButtonVisibility();
+                    elements.businessSearchInput.blur();
+                });
+            }
+            
             // 监听搜索框的输入事件以更新清除按钮
             elements.searchInput.addEventListener('input', () => {
                 updateClearButtonVisibility();
             });
+            
+            // 监听商家搜索框的输入事件以更新清除按钮
+            if (elements.businessSearchInput) {
+                elements.businessSearchInput.addEventListener('input', () => {
+                    updateBusinessClearButtonVisibility();
+                });
+            }
         }
         
         // 初始化应用
