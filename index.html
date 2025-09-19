@@ -484,7 +484,7 @@
             transform: translateY(0);
         }
         
-        /* 商家指引样式 */
+        /* 商家指引样式 - 调整图片区域更大 */
         .business-guide {
             margin-bottom: 30px;
         }
@@ -503,11 +503,11 @@
             box-shadow: var(--shadow-hover);
         }
         
-        /* 新增：图片轮播样式 */
+        /* 调整图片轮播区域高度 - 从300px增加到450px */
         .image-carousel {
             position: relative;
             width: 100%;
-            height: 300px;
+            height: 450px;
             background: var(--light-gray);
             overflow: hidden;
         }
@@ -544,12 +544,12 @@
         }
         
         .carousel-slide .placeholder i {
-            font-size: 4rem;
+            font-size: 5rem;
             opacity: 0.5;
         }
         
         .carousel-slide .placeholder span {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.7;
         }
         
@@ -560,8 +560,8 @@
             background: rgba(0, 0, 0, 0.5);
             color: white;
             border: none;
-            width: 45px;
-            height: 45px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -569,6 +569,7 @@
             justify-content: center;
             z-index: 10;
             transition: background 0.3s ease, transform 0.2s ease;
+            font-size: 1.2rem;
         }
         
         .carousel-btn:hover {
@@ -590,17 +591,17 @@
         
         .carousel-indicators {
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 8px;
+            gap: 10px;
             z-index: 10;
         }
         
         .indicator {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.5);
             cursor: pointer;
@@ -609,44 +610,48 @@
         
         .indicator.active {
             background: white;
-            transform: scale(1.2);
+            transform: scale(1.3);
         }
         
         .indicator:hover {
             background: rgba(255, 255, 255, 0.8);
         }
         
+        /* 减小商家信息区域的padding和字体大小 */
         .business-info {
-            padding: 20px;
+            padding: 15px 20px;
         }
         
+        /* 减小商家名字的字体大小 */
         .business-name {
-            font-size: 1.4rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--text);
         }
         
         .business-description {
             color: var(--gray);
-            margin-bottom: 15px;
-            line-height: 1.5;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            font-size: 0.9rem;
         }
         
         .business-instructions {
             background-color: var(--primary-light);
             border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
+            padding: 12px;
+            margin-top: 12px;
         }
         
         .instructions-title {
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             display: flex;
             align-items: center;
             gap: 8px;
             color: var(--primary);
+            font-size: 0.95rem;
         }
         
         .instructions-steps {
@@ -654,8 +659,9 @@
         }
         
         .instructions-steps li {
-            margin-bottom: 8px;
-            line-height: 1.4;
+            margin-bottom: 6px;
+            line-height: 1.3;
+            font-size: 0.9rem;
         }
         
         /* 新增功能：社区贡献提示 */
@@ -675,294 +681,15 @@
             color: var(--primary);
         }
         
-        /* 电摩配件样式 */
-        .parts-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            background: var(--card-bg);
-            border-radius: var(--card-radius);
-            padding: 20px;
-            box-shadow: var(--shadow);
-        }
-        
-        .category-filter {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .category-btn {
-            padding: 10px 18px;
-            background: var(--light-gray);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            transform: translateY(0);
-        }
-        
-        .category-btn:active {
-            transform: scale(0.95);
-        }
-        
-        .category-btn:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-        
-        .category-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-        
-        .parts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .part-card {
-            background-color: var(--card-bg);
-            border-radius: var(--card-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-direction: column;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        
-        .part-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .part-image {
-            height: 200px;
-            background-color: var(--light-gray);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .part-image i {
-            font-size: 4rem;
-            color: var(--gray);
-        }
-        
-        .part-info {
-            padding: 20px;
-        }
-        
-        .part-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text);
-        }
-        
-        .part-description {
-            color: var(--gray);
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-        
-        .part-price {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 15px;
-        }
-        
-        .part-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transform: translateY(0);
-        }
-        
-        .btn:active {
-            transform: scale(0.97);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            flex: 1;
-        }
-        
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background: var(--light-gray);
-            color: var(--text);
-        }
-        
-        .btn-secondary:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-        
-        /* 模态框样式 */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .modal.active {
-            display: flex;
-        }
-        
-        .modal-content {
-            background-color: var(--card-bg);
-            border-radius: var(--card-radius);
-            max-width: 800px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: var(--shadow);
-            position: relative;
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: var(--light-gray);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: var(--transition);
-        }
-        
-        .modal-close:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .modal-body {
-            padding: 30px;
-        }
-        
-        .modal-header {
-            padding: 30px 30px 0;
-        }
-        
-        .modal-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text);
-        }
-        
-        .modal-image {
-            width: 100%;
-            height: 300px;
-            background-color: var(--light-gray);
-            border-radius: 12px;
-            margin: 20px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-image i {
-            font-size: 6rem;
-            color: var(--gray);
-        }
-        
-        .modal-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .detail-label {
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-        
-        .detail-value {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        
-        .modal-description {
-            margin: 20px 0;
-            line-height: 1.6;
-        }
-        
-        .cart-notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--success);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            z-index: 1000;
-        }
-        
-        .cart-notification.active {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
+        /* 响应式布局调整 */
         @media (max-width: 1100px) {
             .card-grid {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             }
             
-            .parts-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            /* 平板设备图片高度调整 */
+            .image-carousel {
+                height: 380px;
             }
         }
         
@@ -1010,20 +737,25 @@
                 font-size: 3.5rem;
             }
             
-            .parts-controls {
-                flex-direction: column;
-            }
-            
-            .category-filter {
-                justify-content: center;
-            }
-            
-            .modal-details {
-                grid-template-columns: 1fr;
-            }
-            
+            /* 手机设备图片高度调整 */
             .image-carousel {
-                height: 200px;
+                height: 300px;
+            }
+            
+            .carousel-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+            
+            .carousel-indicators {
+                bottom: 15px;
+                gap: 8px;
+            }
+            
+            .indicator {
+                width: 10px;
+                height: 10px;
             }
         }
         
@@ -1063,17 +795,14 @@
                 padding: 0 15px;
             }
             
-            .parts-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .part-actions {
-                flex-direction: column;
+            /* 小屏幕图片高度调整 */
+            .image-carousel {
+                height: 250px;
             }
             
             .carousel-btn {
-                width: 35px;
-                height: 35px;
+                width: 40px;
+                height: 40px;
                 font-size: 0.9rem;
             }
             
@@ -1083,6 +812,27 @@
             
             .carousel-btn.next {
                 right: 10px;
+            }
+            
+            .carousel-slide .placeholder i {
+                font-size: 4rem;
+            }
+            
+            .carousel-slide .placeholder span {
+                font-size: 1rem;
+            }
+            
+            /* 进一步减小商家信息文字 */
+            .business-name {
+                font-size: 1rem;
+            }
+            
+            .instructions-title {
+                font-size: 0.9rem;
+            }
+            
+            .instructions-steps li {
+                font-size: 0.85rem;
             }
         }
     </style>
@@ -1211,7 +961,7 @@
             
             // 空白小区占位符（100个）
             { name: "四季花语四区地10号楼", password: "*054045" },
-            { name: "锦绣华园（夏荷座2单元）", password: "#2580#" },
+            { name: "锦绣华园（复跃座2单元）", password: "#2580#" },
             { name: "待添加小区 3", password: "密码待添加" },
             { name: "待添加小区 4", password: "密码待添加" },
             { name: "待添加小区 5", password: "密码待添加" },
@@ -1321,10 +1071,10 @@
             // ====== 餐饮类商家图片 (ID: 1-30) ======
             
             // 1: 晨亦碗
-             1: ['https://i.postimg.cc/3JLJqcm4/IMG-1793.jpg', '图片2URL', '图片3URL', '图片4URL', '图片5URL'],
+             1: ['https://i.postimg.cc/3JLJqcm4/IMG-1793.jpg', 'https://i.postimg.cc/Sx2wscZr/IMG-1889.jpg', '图片3URL', '图片4URL', '图片5URL'],
             
-            // 2: 肉哆哆
-             2: ['https://i.postimg.cc/GtntSZyw/IMG-1805.jpg', '图片2URL', '图片3URL', '图片4URL', '图片5URL'],
+            // 2: 肉囧囧
+             2: ['https://i.postimg.cc/GtntSZyw/IMG-1805.jpg', 'https://i.postimg.cc/X7JzX92P/IMG-1884.jpg', 'https://i.postimg.cc/c15c92mD/IMG-1885.jpg', 'https://i.postimg.cc/cLchmH53/IMG-1886.jpg', '图片5URL'],
             
             // 3: 福满楼餐厅
             // 3: ['图片1URL', '图片2URL', '图片3URL', '图片4URL', '图片5URL'],
@@ -1349,7 +1099,7 @@
         const businesses = [
             // 餐饮类商家 (1-30)
             { id: 1, name: "晨亦碗、潮汕牛肉饭（一家店）", type: "餐饮", navigation: ["暂无"] },
-            { id: 2, name: "肉哆哆、椒小仙（一家店）", type: "餐饮", navigation: ["市场内最西南角"] },
+            { id: 2, name: "肉囧囧、椒小仙（一家店）", type: "餐饮", navigation: ["市场内最西南角"] },
             { id: 3, name: "福满楼餐厅", type: "餐饮", navigation: ["从小区主入口进入", "第二个路口右转", "红色大门，有停车位"] },
             { id: 4, name: "早安豆浆", type: "餐饮", navigation: ["小区西门外50米", "便利店旁边", "绿色招牌很显眼"] },
             { id: 5, name: "重庆小面", type: "餐饮", navigation: ["从北门进入商业区", "第一排商铺左侧", "门口有红灯笼"] },
