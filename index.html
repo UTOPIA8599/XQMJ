@@ -687,7 +687,7 @@
             color: var(--primary);
         }
         
-        /* 图片放大预览模态框样式 */
+        /* 重新设计的图片放大预览模态框样式 */
         .image-modal {
             display: none;
             position: fixed;
@@ -695,7 +695,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -710,19 +710,30 @@
         
         .modal-content {
             position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            max-width: 95%;
+            max-height: 95%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .modal-image-container {
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 100%;
+            height: calc(100% - 80px);
+            position: relative;
         }
         
         .modal-image {
             max-width: 100%;
-            max-height: 90vh;
+            max-height: 100%;
             object-fit: contain;
             border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
         
         .modal-close {
@@ -730,12 +741,12 @@
             top: 20px;
             right: 20px;
             color: white;
-            font-size: 2rem;
+            font-size: 2.2rem;
             cursor: pointer;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -745,7 +756,7 @@
         }
         
         .modal-close:hover {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             transform: scale(1.1);
         }
         
@@ -753,49 +764,74 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
+            font-size: 2rem;
             transition: background 0.3s ease, transform 0.2s ease;
             z-index: 1010;
         }
         
         .modal-nav:hover {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             transform: translateY(-50%) scale(1.1);
         }
         
         .modal-nav.prev {
-            left: 20px;
+            left: 30px;
         }
         
         .modal-nav.next {
-            right: 20px;
+            right: 30px;
         }
         
-        .modal-counter {
+        .modal-controls {
             position: absolute;
             bottom: 20px;
             left: 0;
             right: 0;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 1010;
+        }
+        
+        .modal-counter {
             color: white;
-            font-size: 1.1rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 8px 15px;
+            font-size: 1.2rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
             border-radius: 20px;
             display: inline-block;
-            margin: 0 auto;
             width: fit-content;
-            z-index: 1010;
+        }
+        
+        .modal-zoom {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        
+        .modal-zoom:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
         }
         
         /* 响应式布局调整 */
@@ -877,21 +913,22 @@
             
             /* 模态框移动端适配 */
             .modal-content {
-                max-width: 95%;
+                max-width: 100%;
+                max-height: 100%;
             }
             
             .modal-close {
                 top: 10px;
                 right: 10px;
                 font-size: 1.8rem;
-                width: 45px;
-                height: 45px;
+                width: 50px;
+                height: 50px;
             }
             
             .modal-nav {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
             }
             
             .modal-nav.prev {
@@ -902,9 +939,20 @@
                 right: 10px;
             }
             
+            .modal-controls {
+                bottom: 10px;
+                gap: 15px;
+            }
+            
             .modal-counter {
                 font-size: 1rem;
-                bottom: 10px;
+                padding: 8px 16px;
+            }
+            
+            .modal-zoom {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
             }
         }
         
@@ -986,10 +1034,9 @@
             
             /* 模态框小屏幕适配 */
             .modal-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-                position: fixed;
+                width: 45px;
+                height: 45px;
+                font-size: 1.4rem;
             }
             
             .modal-nav.prev {
@@ -1003,24 +1050,34 @@
             .modal-close {
                 top: 5px;
                 right: 5px;
-                width: 40px;
-                height: 40px;
-                font-size: 1.5rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.6rem;
+            }
+            
+            .modal-controls {
+                bottom: 5px;
+                gap: 10px;
             }
             
             .modal-counter {
                 font-size: 0.9rem;
-                bottom: 5px;
                 padding: 6px 12px;
+            }
+            
+            .modal-zoom {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
             }
         }
 
         /* 针对大屏幕的优化 */
         @media (min-width: 1200px) {
             .modal-nav {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
+                width: 80px;
+                height: 80px;
+                font-size: 2.2rem;
             }
             
             .modal-nav.prev {
@@ -1034,15 +1091,20 @@
             .modal-close {
                 top: 30px;
                 right: 30px;
-                width: 60px;
-                height: 60px;
-                font-size: 2.2rem;
+                width: 70px;
+                height: 70px;
+                font-size: 2.5rem;
             }
             
             .modal-counter {
-                font-size: 1.2rem;
-                bottom: 30px;
-                padding: 10px 20px;
+                font-size: 1.3rem;
+                padding: 12px 24px;
+            }
+            
+            .modal-zoom {
+                width: 60px;
+                height: 60px;
+                font-size: 1.8rem;
             }
         }
     </style>
@@ -1132,20 +1194,27 @@
         </footer>
     </div>
 
-    <!-- 图片放大预览模态框 -->
+    <!-- 重新设计的图片放大预览模态框 -->
     <div class="image-modal" id="imageModal">
         <div class="modal-content">
-            <button class="modal-close" id="modalClose">
-                <i class="fas fa-times"></i>
-            </button>
-            <button class="modal-nav prev" id="modalPrev">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <img class="modal-image" id="modalImage" src="" alt="放大预览">
-            <button class="modal-nav next" id="modalNext">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <div class="modal-counter" id="modalCounter">1 / 5</div>
+            <div class="modal-image-container">
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="modal-nav prev" id="modalPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <img class="modal-image" id="modalImage" src="" alt="放大预览">
+                <button class="modal-nav next" id="modalNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="modal-controls">
+                <div class="modal-counter" id="modalCounter">1 / 5</div>
+                <button class="modal-zoom" id="modalZoom">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1189,8 +1258,8 @@
             // 空白小区占位符（100个）
             { name: "四季花语四区地10号楼", password: "*054045" },
             { name: "锦绣华园（复跃座2单元）", password: "#2580#" },
-            { name: "廊坊市天宝路桥工程有限公司", password: "第一个门（1573#）第二个门（#2468#）" },
-            { name: "星屿湾民宿（和平路店）", password: "0316#" },
+            { name: "待添加小区 3", password: "密码待添加" },
+            { name: "待添加小区 4", password: "密码待添加" },
             { name: "待添加小区 5", password: "密码待添加" },
             { name: "待添加小区 6", password: "密码待添加" },
             { name: "待添加小区 7", password: "密码待添加" },
@@ -1451,7 +1520,8 @@
             modalClose: document.getElementById('modalClose'),
             modalPrev: document.getElementById('modalPrev'),
             modalNext: document.getElementById('modalNext'),
-            modalCounter: document.getElementById('modalCounter')
+            modalCounter: document.getElementById('modalCounter'),
+            modalZoom: document.getElementById('modalZoom')
         };
         
         // 状态变量
@@ -1466,6 +1536,7 @@
         let currentModalBusinessId = null;
         let currentModalImageIndex = 0;
         let currentModalImages = [];
+        let isZoomed = false;
         
         // 初始化页面
         function init() {
@@ -1515,6 +1586,12 @@
                 navigateModalImage(true);
             });
             
+            // 缩放功能
+            elements.modalZoom.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleZoom();
+            });
+            
             // 键盘导航
             document.addEventListener('keydown', (e) => {
                 if (!elements.imageModal.classList.contains('active')) return;
@@ -1529,6 +1606,10 @@
                     case 'ArrowRight':
                         navigateModalImage(true);
                         break;
+                    case 'z':
+                    case 'Z':
+                        toggleZoom();
+                        break;
                 }
             });
         }
@@ -1538,6 +1619,11 @@
             currentModalBusinessId = businessId;
             currentModalImageIndex = imageIndex;
             currentModalImages = getBusinessImages(businessId);
+            
+            // 重置缩放状态
+            isZoomed = false;
+            elements.modalImage.style.transform = 'scale(1)';
+            elements.modalZoom.querySelector('i').className = 'fas fa-expand';
             
             // 更新模态框图片
             updateModalImage();
@@ -1572,6 +1658,21 @@
             
             elements.modalImage.src = currentModalImages[currentModalImageIndex];
             elements.modalCounter.textContent = `${currentModalImageIndex + 1} / ${currentModalImages.length}`;
+        }
+        
+        // 切换缩放状态
+        function toggleZoom() {
+            isZoomed = !isZoomed;
+            
+            if (isZoomed) {
+                elements.modalImage.style.transform = 'scale(1.5)';
+                elements.modalImage.style.cursor = 'zoom-out';
+                elements.modalZoom.querySelector('i').className = 'fas fa-compress';
+            } else {
+                elements.modalImage.style.transform = 'scale(1)';
+                elements.modalImage.style.cursor = 'zoom-in';
+                elements.modalZoom.querySelector('i').className = 'fas fa-expand';
+            }
         }
         
         // 设置选项卡功能
