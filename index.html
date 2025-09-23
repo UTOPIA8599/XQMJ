@@ -526,12 +526,18 @@
             justify-content: center;
             background: var(--light-gray);
             position: relative;
+            cursor: pointer;
         }
         
         .carousel-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .carousel-slide:hover img {
+            transform: scale(1.02);
         }
         
         .carousel-slide .placeholder {
@@ -681,6 +687,117 @@
             color: var(--primary);
         }
         
+        /* 图片放大预览模态框样式 */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .image-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s ease, transform 0.2s ease;
+            z-index: 1010;
+        }
+        
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: scale(1.1);
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: background 0.3s ease, transform 0.2s ease;
+            z-index: 1010;
+        }
+        
+        .modal-nav:hover {
+            background: rgba(0, 0, 0, 0.7);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .modal-nav.prev {
+            left: 20px;
+        }
+        
+        .modal-nav.next {
+            right: 20px;
+        }
+        
+        .modal-counter {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 0 auto;
+            width: fit-content;
+            z-index: 1010;
+        }
+        
         /* 响应式布局调整 */
         @media (max-width: 1100px) {
             .card-grid {
@@ -756,6 +873,38 @@
             .indicator {
                 width: 10px;
                 height: 10px;
+            }
+            
+            /* 模态框移动端适配 */
+            .modal-content {
+                max-width: 95%;
+            }
+            
+            .modal-close {
+                top: 10px;
+                right: 10px;
+                font-size: 1.8rem;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .modal-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-nav.prev {
+                left: 10px;
+            }
+            
+            .modal-nav.next {
+                right: 10px;
+            }
+            
+            .modal-counter {
+                font-size: 1rem;
+                bottom: 10px;
             }
         }
         
@@ -833,6 +982,67 @@
             
             .instructions-steps li {
                 font-size: 0.85rem;
+            }
+            
+            /* 模态框小屏幕适配 */
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+                position: fixed;
+            }
+            
+            .modal-nav.prev {
+                left: 5px;
+            }
+            
+            .modal-nav.next {
+                right: 5px;
+            }
+            
+            .modal-close {
+                top: 5px;
+                right: 5px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            
+            .modal-counter {
+                font-size: 0.9rem;
+                bottom: 5px;
+                padding: 6px 12px;
+            }
+        }
+
+        /* 针对大屏幕的优化 */
+        @media (min-width: 1200px) {
+            .modal-nav {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            
+            .modal-nav.prev {
+                left: 40px;
+            }
+            
+            .modal-nav.next {
+                right: 40px;
+            }
+            
+            .modal-close {
+                top: 30px;
+                right: 30px;
+                width: 60px;
+                height: 60px;
+                font-size: 2.2rem;
+            }
+            
+            .modal-counter {
+                font-size: 1.2rem;
+                bottom: 30px;
+                padding: 10px 20px;
             }
         }
     </style>
@@ -920,6 +1130,23 @@
         <footer>
             <p>骑手辅助工具© 2025 - 为骑手提供便捷的门禁管理与商家导航解决方案</p>
         </footer>
+    </div>
+
+    <!-- 图片放大预览模态框 -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="modal-nav prev" id="modalPrev">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <img class="modal-image" id="modalImage" src="" alt="放大预览">
+            <button class="modal-nav next" id="modalNext">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+            <div class="modal-counter" id="modalCounter">1 / 5</div>
+        </div>
     </div>
 
     <script>
@@ -1073,7 +1300,7 @@
             // 1: 晨亦碗
              1: ['https://i.postimg.cc/3JLJqcm4/IMG-1793.jpg', 'https://i.postimg.cc/Sx2wscZr/IMG-1889.jpg', '图片3URL', '图片4URL', '图片5URL'],
             
-            // 2: 肉囧囧
+            // 2: 肉哆哆
              2: ['https://i.postimg.cc/GtntSZyw/IMG-1805.jpg', 'https://i.postimg.cc/X7JzX92P/IMG-1884.jpg', 'https://i.postimg.cc/c15c92mD/IMG-1885.jpg', 'https://i.postimg.cc/cLchmH53/IMG-1886.jpg', '图片5URL'],
             
             // 3: 福满楼餐厅
@@ -1217,7 +1444,14 @@
             clearSearch: document.getElementById('clearSearch'),
             businessGuide: document.getElementById('businessGuide'),
             businessSearchInput: document.getElementById('businessSearchInput'),
-            clearBusinessSearch: document.getElementById('clearBusinessSearch')
+            clearBusinessSearch: document.getElementById('clearBusinessSearch'),
+            // 模态框元素
+            imageModal: document.getElementById('imageModal'),
+            modalImage: document.getElementById('modalImage'),
+            modalClose: document.getElementById('modalClose'),
+            modalPrev: document.getElementById('modalPrev'),
+            modalNext: document.getElementById('modalNext'),
+            modalCounter: document.getElementById('modalCounter')
         };
         
         // 状态变量
@@ -1228,12 +1462,18 @@
         let expandedCards = new Set();
         let carouselIndexes = {};
         
+        // 图片放大预览相关状态
+        let currentModalBusinessId = null;
+        let currentModalImageIndex = 0;
+        let currentModalImages = [];
+        
         // 初始化页面
         function init() {
             renderCards(communities);
             renderBusinesses(businesses);
             setupEventListeners();
             setupTabs();
+            setupImageModal();
             
             // 检测系统主题偏好
             if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -1247,6 +1487,91 @@
             // 初始隐藏清除按钮
             updateClearButtonVisibility();
             updateBusinessClearButtonVisibility();
+        }
+        
+        // 设置图片放大预览功能
+        function setupImageModal() {
+            // 关闭模态框
+            elements.modalClose.addEventListener('click', () => {
+                closeImageModal();
+            });
+            
+            // 点击模态框背景关闭
+            elements.imageModal.addEventListener('click', (e) => {
+                if (e.target === elements.imageModal) {
+                    closeImageModal();
+                }
+            });
+            
+            // 上一张图片
+            elements.modalPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateModalImage(false);
+            });
+            
+            // 下一张图片
+            elements.modalNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateModalImage(true);
+            });
+            
+            // 键盘导航
+            document.addEventListener('keydown', (e) => {
+                if (!elements.imageModal.classList.contains('active')) return;
+                
+                switch(e.key) {
+                    case 'Escape':
+                        closeImageModal();
+                        break;
+                    case 'ArrowLeft':
+                        navigateModalImage(false);
+                        break;
+                    case 'ArrowRight':
+                        navigateModalImage(true);
+                        break;
+                }
+            });
+        }
+        
+        // 打开图片放大预览
+        function openImageModal(businessId, imageIndex) {
+            currentModalBusinessId = businessId;
+            currentModalImageIndex = imageIndex;
+            currentModalImages = getBusinessImages(businessId);
+            
+            // 更新模态框图片
+            updateModalImage();
+            
+            // 显示模态框
+            elements.imageModal.classList.add('active');
+            
+            // 阻止背景滚动
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // 关闭图片放大预览
+        function closeImageModal() {
+            elements.imageModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // 导航模态框中的图片
+        function navigateModalImage(isNext) {
+            if (isNext) {
+                currentModalImageIndex = (currentModalImageIndex + 1) % currentModalImages.length;
+            } else {
+                currentModalImageIndex = (currentModalImageIndex - 1 + currentModalImages.length) % currentModalImages.length;
+            }
+            
+            updateModalImage();
+        }
+        
+        // 更新模态框中的图片
+        function updateModalImage() {
+            if (currentModalImages.length === 0) return;
+            
+            elements.modalImage.src = currentModalImages[currentModalImageIndex];
+            elements.modalCounter.textContent = `${currentModalImageIndex + 1} / ${currentModalImages.length}`;
         }
         
         // 设置选项卡功能
@@ -1373,7 +1698,7 @@
                     if (images && images[i]) {
                         // 如果有真实图片，渲染img标签
                         return `
-                            <div class="carousel-slide">
+                            <div class="carousel-slide" data-business-id="${business.id}" data-image-index="${i}">
                                 <img src="${images[i]}" alt="${business.name} - 图片 ${i + 1}" style="width: 100%; height: 100%; object-fit: cover;">
                             </div>
                         `;
@@ -1450,6 +1775,19 @@
                     const slideIndex = parseInt(indicator.getAttribute('data-slide'));
                     const businessId = parseInt(indicator.getAttribute('data-business'));
                     goToSlide(businessId, slideIndex);
+                });
+            });
+            
+            // 设置图片点击放大预览
+            document.querySelectorAll('.business-guide .carousel-slide img').forEach(img => {
+                img.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const slide = img.closest('.carousel-slide');
+                    const businessId = parseInt(slide.getAttribute('data-business-id'));
+                    const imageIndex = parseInt(slide.getAttribute('data-image-index'));
+                    
+                    // 打开图片放大预览
+                    openImageModal(businessId, imageIndex);
                 });
             });
             
